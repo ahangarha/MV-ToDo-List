@@ -47,6 +47,7 @@ body {
   font-weight: 700;
   user-select: none;
   transform: rotate(-5deg);
+  z-index: -1;
 }
 
 #todo-wrapper {

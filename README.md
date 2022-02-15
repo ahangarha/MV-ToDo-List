@@ -15,10 +15,6 @@ This is an educational project to make a To Do List web application without usin
 
 ![screenshot](./screenshot.png)
 
-## Live Demo
-
-Not available yet
-
 ## Usage
 
 To build the project run:

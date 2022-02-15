@@ -19,6 +19,8 @@ export default class TodoList {
 
   addTodo(todo) {
     const li = document.createElement('li');
+    li.classList.add('todo');
+
     const label = document.createElement('label');
     const chkbox = document.createElement('input');
 

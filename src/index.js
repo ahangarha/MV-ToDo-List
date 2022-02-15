@@ -9,6 +9,6 @@ const todoList = new TodoList(todoListWrapper);
 const form = document.getElementById('todo-form');
 form.addEventListener('submit', (event) => {
   event.preventDefault();
-  todoList.addNewItem(form['todo-title'].value);
-  form['todo-title'].value = '';
+  todoList.addNewItem(form.description.value);
+  form.description.value = '';
 });

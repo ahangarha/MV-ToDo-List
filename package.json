@@ -4,7 +4,7 @@
   "description": "To Do List app as a Microverse project",
   "private": true,
   "scripts": {
-    "dev": "webpack serve --open",
+    "dev": "webpack serve --open --mode=development",
     "build": "webpack",
     "lint": "npx eslint .; npx stylelint \"**/*.{css,scss}\"; npx hint .",
     "test": "echo \"Error: no test specified\" && exit 1"

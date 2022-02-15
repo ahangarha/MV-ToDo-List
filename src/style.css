@@ -21,6 +21,8 @@ a {
 }
 
 button {
+  border: none;
+  background: none;
   cursor: pointer;
 }
 
@@ -106,36 +108,70 @@ body {
 #todo-list li.todo {
   padding: 1rem;
   display: flex;
+  gap: 1rem;
   align-items: center;
-  justify-content: space-between;
+  justify-content: stretch;
   border-bottom: 1px solid #eee;
 }
 
-#todo-list li.todo label {
+#todo-list li.todo.active {
+  background-color: rgb(220, 255, 243);
+}
+
+#todo-list li.todo .completionIcon {
+  overflow: hidden;
   display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-#todo-list li.todo label.checked {
-  text-decoration: line-through;
-  color: var(--color-gray-light);
-}
-
-#todo-list li.todo label input {
-  width: 1.15rem;
-  height: 1.15rem;
-}
-
-#todo-list li.todo button {
+  flex-grow: 0;
   border: none;
   background: none;
-  color: var(--color-gray-light);
+}
+
+#todo-list li.todo .completionIcon > svg {
+  flex-shrink: 0;
+}
+
+#todo-list li.todo .completionIcon > svg:first-child {
+  padding-left: 0;
+  transition-duration: 300ms;
+  color: var(--color-gray);
+}
+
+#todo-list li.todo.completed .completionIcon > svg:first-child {
+  margin-left: -1.25rem;
+}
+
+#todo-list li.todo .description {
+  flex-grow: 1;
+  border: none;
+  background: none;
+  font-size: 1rem;
+  color: var(--color-primary);
+}
+
+#todo-list li.todo.completed .description {
+  text-decoration: line-through;
+  color: var(--color-gray);
+}
+
+#todo-list li.todo .actionIcon {
+  overflow: hidden;
+  display: flex;
+  flex-grow: 0;
+}
+
+#todo-list li.todo .actionIcon > button {
+  flex-shrink: 0;
+}
+
+#todo-list li.todo .actionIcon > button:first-child {
+  padding-left: 0;
+  transition-duration: 300ms;
+  color: var(--color-gray);
   cursor: move;
 }
 
-#todo-list li.todo button:hover {
-  color: var(--color-primary);
+#todo-list li.todo.active .actionIcon > button:first-child {
+  margin-left: -1.25rem;
 }
 
 #clear-all {

@@ -6,9 +6,15 @@ export default class TodoList {
   }
 
   init() {
+    this.todos = this.sortList();
     this.todos.forEach((todo) => {
       this.addTodo(todo);
     });
+  }
+
+  sortList() {
+    const sortedTodos = this.todos.sort((a, b) => a.index - b.index);
+    return sortedTodos;
   }
 
   addTodo(todo) {

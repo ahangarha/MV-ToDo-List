@@ -1,0 +1,146 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --color-primary: #333;
+  --color-gray: #777;
+  --color-gray-light: #aaa;
+}
+
+a {
+  color: var(--color-primary);
+  text-transform: none;
+}
+
+.icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+button {
+  cursor: pointer;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #eee;
+  font-family: sans-serif;
+  color: #333;
+}
+
+.bg-title {
+  position: absolute;
+  top: 0;
+  inset: 1rem;
+  text-align: center;
+  opacity: 0.05;
+  font-size: 10rem;
+  font-weight: 700;
+  user-select: none;
+  transform: rotate(-5deg);
+  z-index: -1;
+}
+
+#todo-wrapper {
+  background-color: white;
+  margin: 1rem;
+  box-shadow: 0 0.2rem 0.5rem #0003;
+  width: 100%;
+  max-width: 500px;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.todo-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1rem 0.5rem;
+  border-bottom: 1px solid #eee;
+}
+
+.todo-header a {
+  color: var(--color-gray);
+}
+
+.todo-header a:hover {
+  color: var(--color-primary);
+}
+
+#todo-form {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+#todo-form input {
+  border: none;
+  flex-grow: 1;
+  padding: 0.5rem;
+  font-style: italic;
+}
+
+#todo-form button {
+  border: none;
+  background: none;
+  flex-grow: 0;
+  color: var(--color-gray);
+}
+
+#todo-form button:hover {
+  color: var(--color-primary);
+}
+
+#todo-list li.todo {
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #eee;
+}
+
+#todo-list li.todo label {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+#todo-list li.todo label.checked {
+  text-decoration: line-through;
+  color: var(--color-gray-light);
+}
+
+#todo-list li.todo label input {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+#todo-list li.todo button {
+  border: none;
+  background: none;
+  color: var(--color-gray-light);
+  cursor: move;
+}
+
+#todo-list li.todo button:hover {
+  color: var(--color-primary);
+}
+
+#clear-all {
+  width: 100%;
+  background-color: #eee;
+  border: 0;
+  padding: 1rem;
+}

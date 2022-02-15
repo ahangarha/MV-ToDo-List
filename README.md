@@ -8,6 +8,29 @@ This is an educational project to make a To Do List web application without usin
 
 - HTML5
 - JavaScript
+- npm
+- webpack
+
+## Screenshot
+
+![screenshot](./screenshot.png)
+
+## Usage
+
+To build the project run:
+
+```
+$ npm install
+$ npm run build
+```
+
+## Development
+
+In development environment use the following command:
+
+```
+$ npm run dev
+```
 
 ## Author
 

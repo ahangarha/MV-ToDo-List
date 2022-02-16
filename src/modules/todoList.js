@@ -87,6 +87,11 @@ export default class TodoList {
     </svg>
     `;
 
+    completionIcon.addEventListener('click', (event) => {
+      event.preventDefault();
+      this.toggleCompleteStatus(li);
+    });
+
     const description = document.createElement('input');
     description.setAttribute('type', 'text');
     description.setAttribute('name', 'description');
@@ -176,5 +181,13 @@ export default class TodoList {
     this.updateStorage();
     this.removeAllFromPage();
     this.addAllToPage();
+  }
+
+  toggleCompleteStatus(element) {
+    element.classList.toggle('completed');
+
+    const todoIndex = Number(element.id.match(/\d+$/));
+    this.todos[todoIndex].completed = element.classList.contains('completed');
+    this.updateStorage();
   }
 }

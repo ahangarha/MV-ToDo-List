@@ -37,6 +37,7 @@ export default class TodoList {
   addToPage(todo) {
     const li = document.createElement('li');
     li.classList.add('todo');
+    li.setAttribute('id', 'todo-'.concat(todo.index));
 
     const completionIcon = document.createElement('button');
     completionIcon.setAttribute('type', 'button');
@@ -133,11 +134,11 @@ export default class TodoList {
   }
 
   addNewItem(description) {
-    const id = this.todos.length;
+    const index = this.todos.length;
     const completed = false;
 
     const newTodo = {
-      id,
+      index,
       description,
       completed,
     };

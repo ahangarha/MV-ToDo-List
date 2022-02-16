@@ -184,13 +184,23 @@ export default class TodoList {
     this.addToPage(newTodo);
   }
 
+  refreshTodosOnPage() {
+    this.updateStorage();
+    this.removeAllFromPage();
+    this.addAllToPage();
+  }
+
   removeItem(element) {
     const todoId = Number(element.id.match(/\d+$/));
     this.todos = this.todos.filter((todo) => todo.index !== todoId);
     this.todos = this.sortList();
-    this.updateStorage();
-    this.removeAllFromPage();
-    this.addAllToPage();
+    this.refreshTodosOnPage();
+  }
+
+  removeAllCompleted() {
+    this.todos = this.todos.filter((todo) => !todo.completed);
+    this.todos = this.sortList();
+    this.refreshTodosOnPage();
   }
 
   toggleCompleteStatus(element) {

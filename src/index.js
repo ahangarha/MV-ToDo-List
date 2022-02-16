@@ -12,3 +12,8 @@ form.addEventListener('submit', (event) => {
   todoList.addNewItem(form.description.value);
   form.description.value = '';
 });
+
+const clearAllCompletedBtn = document.getElementById('clear-all');
+clearAllCompletedBtn.addEventListener('click', () => {
+  todoList.removeAllCompleted();
+});

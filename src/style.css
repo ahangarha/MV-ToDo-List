@@ -140,6 +140,10 @@ body {
   margin-left: -1.25rem;
 }
 
+#todo-list li.todo.completed .completionIcon > svg:last-child {
+  color: rgb(22, 192, 107);
+}
+
 #todo-list li.todo .description {
   flex-grow: 1;
   border: none;
@@ -149,15 +153,17 @@ body {
   cursor: default;
 }
 
+#todo-list li.todo.completed .description {
+  text-decoration: line-through;
+  color: var(--color-gray-light);
+}
+
 #todo-list li.todo.active .description {
   cursor: text;
   outline-offset: 0.2rem;
+  text-decoration: none;
 }
 
-#todo-list li.todo.completed .description {
-  text-decoration: line-through;
-  color: var(--color-gray);
-}
 
 #todo-list li.todo .actionIcon {
   overflow: hidden;

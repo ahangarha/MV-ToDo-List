@@ -95,9 +95,19 @@ export default class TodoList {
     const description = document.createElement('input');
     description.setAttribute('type', 'text');
     description.setAttribute('name', 'description');
-    description.setAttribute('disabled', '');
+    description.readOnly = true;
     description.setAttribute('value', todo.description);
     description.classList.add('description');
+
+    description.addEventListener('focusin', () => {
+      description.readOnly = false;
+      li.classList.add('active');
+    });
+
+    description.addEventListener('focusout', () => {
+      description.readOnly = true;
+      li.classList.remove('active');
+    });
 
     const actionIcon = document.createElement('div');
     actionIcon.classList.add('actionIcon', 'icon');

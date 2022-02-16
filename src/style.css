@@ -146,6 +146,12 @@ body {
   background: none;
   font-size: 1rem;
   color: var(--color-primary);
+  cursor: default;
+}
+
+#todo-list li.todo.active .description {
+  cursor: text;
+  outline-offset: 0.2rem;
 }
 
 #todo-list li.todo.completed .description {

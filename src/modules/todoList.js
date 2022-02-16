@@ -18,9 +18,13 @@ export default class TodoList {
       this.todos = [];
     }
 
-    this.todos.forEach((todo) => {
-      this.addToPage(todo);
-    });
+    this.addAllToPage();
+  }
+
+  updateStorage() {
+    if (this.isStorageAvailable) {
+      window.localStorage.setItem(this.storageName, JSON.stringify(this.todos));
+    }
   }
 
   sortList() {
@@ -32,6 +36,16 @@ export default class TodoList {
       completed: todo.completed,
     }));
     return sortedTodos;
+  }
+
+  addAllToPage() {
+    this.todos.forEach((todo) => {
+      this.addToPage(todo);
+    });
+  }
+
+  removeAllFromPage() {
+    this.wrapper.innerHTML = '';
   }
 
   addToPage(todo) {
@@ -120,8 +134,10 @@ export default class TodoList {
       ></path>
     </svg>
     `;
+    deleteIcon.addEventListener('click', () => this.removeItem(li));
 
     actionIcon.appendChild(dragIcon);
+    actionIcon.appendChild(deleteIcon);
 
     if (todo.completed) {
       li.classList.add('completed');
@@ -151,5 +167,14 @@ export default class TodoList {
 
     // show on the page
     this.addToPage(newTodo);
+  }
+
+  removeItem(element) {
+    const todoId = Number(element.id.match(/\d+$/));
+    this.todos = this.todos.filter((todo) => todo.index !== todoId);
+    this.todos = this.sortList();
+    this.updateStorage();
+    this.removeAllFromPage();
+    this.addAllToPage();
   }
 }

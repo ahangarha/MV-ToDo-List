@@ -17,6 +17,21 @@ describe('Test - Part 1', () => {
 
     //Assert
     expect(todoList.todos.length).toBe(1);
-    expect(wrapper.innerHTML).not.toBe("");
+    expect(wrapper.innerHTML).not.toBe('');
+  });
+
+  test('remove todo', () => {
+    // Arrange
+    document.body.innerHTML = '<ul id="todo-list"></ul>';
+    const wrapper = document.getElementById('todo-list');
+    const todoList = new TodoList(wrapper);
+    const todoElement = document.getElementById('todo-0');
+
+    // Act
+    todoList.removeItem(todoElement);
+
+    // Assert
+    expect(todoList.todos.length).toBe(0);
+    expect(wrapper.innerHTML).toBe('');
   });
 });

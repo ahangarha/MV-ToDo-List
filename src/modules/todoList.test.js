@@ -6,7 +6,7 @@ import TodoList from './todoList.js';
 
 describe('Test - Part 1', () => {
   test('add new todo', () => {
-    //Arrange
+    // Arrange
     document.body.innerHTML = '<ul id="todo-list"></ul>';
     const wrapper = document.getElementById('todo-list');
     const todoList = new TodoList(wrapper);
@@ -15,7 +15,7 @@ describe('Test - Part 1', () => {
     // Act
     todoList.addNewItem(todoTitle);
 
-    //Assert
+    // Assert
     expect(todoList.todos.length).toBe(1);
     expect(wrapper.innerHTML).not.toBe('');
   });

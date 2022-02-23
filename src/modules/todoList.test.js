@@ -69,4 +69,28 @@ describe('Test Part 2', () => {
     expect(todoElement.classList).toContain('completed');
     expect(todoList.todos[0].completed).toBe(true);
   });
+
+  test('remove all completed todos', () => {
+    // Arrange
+    document.body.innerHTML = `<ul id="todo-list"></ul>
+      <button type="button" id="clear-all">Clear all</button>`;
+    const wrapper = document.getElementById('todo-list');
+    const todoList = new TodoList(wrapper);
+
+    todoList.addNewItem('todo 1');
+    todoList.addNewItem('todo to remain');
+
+    const button1 = document.querySelector('#todo-1 .completionIcon');
+    const clearAllBtn = document.getElementById('clear-all');
+
+    // Act
+    button1.click();
+    clearAllBtn.click();
+    todoList.removeAllCompleted();
+
+    // Assert
+    expect(wrapper.children.length).toBe(1);
+    expect(todoList.todos.length).toBe(1);
+    expect(todoList.todos[0].description).toBe('todo to remain');
+  });
 });

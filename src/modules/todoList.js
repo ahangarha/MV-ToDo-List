@@ -48,10 +48,10 @@ export default class TodoList {
     this.wrapper.innerHTML = '';
   }
 
-  addToPage(todo) {
+  addToPage({ index, description, completed }) {
     const li = document.createElement('li');
     li.classList.add('todo');
-    li.setAttribute('id', 'todo-'.concat(todo.index));
+    li.setAttribute('id', 'todo-'.concat(index));
 
     const completionIcon = document.createElement('button');
     completionIcon.setAttribute('type', 'button');
@@ -92,20 +92,20 @@ export default class TodoList {
       this.toggleCompleteStatus(li);
     });
 
-    const description = document.createElement('input');
-    description.setAttribute('type', 'text');
-    description.setAttribute('name', 'description');
-    description.readOnly = true;
-    description.setAttribute('value', todo.description);
-    description.classList.add('description');
+    const descriptionElement = document.createElement('input');
+    descriptionElement.setAttribute('type', 'text');
+    descriptionElement.setAttribute('name', 'description');
+    descriptionElement.readOnly = true;
+    descriptionElement.setAttribute('value', description);
+    descriptionElement.classList.add('description');
 
-    description.addEventListener('focusin', () => {
-      description.readOnly = false;
+    descriptionElement.addEventListener('focusin', () => {
+      descriptionElement.readOnly = false;
       li.classList.add('active');
     });
 
-    description.addEventListener('focusout', (event) => {
-      description.readOnly = true;
+    descriptionElement.addEventListener('focusout', (event) => {
+      descriptionElement.readOnly = true;
       const newDescription = event.target.value;
       const index = Number(event.target.parentElement.id.match(/\d+$/));
       this.todos[index].description = newDescription;
@@ -158,12 +158,12 @@ export default class TodoList {
     actionIcon.appendChild(dragIcon);
     actionIcon.appendChild(deleteIcon);
 
-    if (todo.completed) {
+    if (completed) {
       li.classList.add('completed');
     }
 
     li.appendChild(completionIcon);
-    li.appendChild(description);
+    li.appendChild(descriptionElement);
     li.appendChild(actionIcon);
     this.wrapper.appendChild(li);
   }

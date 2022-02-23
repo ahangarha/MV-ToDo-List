@@ -59,7 +59,6 @@ describe('Test Part 2', () => {
     document.body.innerHTML = '<ul id="todo-list"></ul>';
     const wrapper = document.getElementById('todo-list');
     const todoList = new TodoList(wrapper);
-    todoList.addNewItem('New todo');
     const todoElement = document.querySelector('#todo-0');
     const button = document.querySelector('#todo-0 .completionIcon');
 

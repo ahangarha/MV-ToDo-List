@@ -35,3 +35,23 @@ describe('Test - Part 1', () => {
     expect(wrapper.innerHTML).toBe('');
   });
 });
+
+describe('Test Part 2', () => {
+  test('test edit Task', () => {
+    // Arrange
+    document.body.innerHTML = '<ul id="todo-list"></ul>';
+    const wrapper = document.getElementById('todo-list');
+    const todoList = new TodoList(wrapper);
+    todoList.addNewItem("New todo");
+    const todoElement = document.getElementById('todo-0');
+    const input = document.querySelector('#todo-0 input');
+
+    // Act
+    input.focus();
+    input.value = "edited"
+    input.blur();
+
+    // Assert
+    expect(todoList.todos[0].description).toBe('edited');
+  })
+})

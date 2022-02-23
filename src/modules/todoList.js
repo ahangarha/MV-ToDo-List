@@ -104,9 +104,13 @@ export default class TodoList {
       li.classList.add('active');
     });
 
-    description.addEventListener('focusout', () => {
+    description.addEventListener('focusout', (event) => {
       description.readOnly = true;
+      const newDescription = event.target.value;
+      const index = Number(event.target.parentElement.id.match(/\d+$/));
+      this.todos[index].description = newDescription;
       li.classList.remove('active');
+      this.refreshTodosOnPage();
     });
 
     const actionIcon = document.createElement('div');

@@ -48,10 +48,28 @@ describe('Test Part 2', () => {
 
     // Act
     input.focus();
-    input.value = "edited"
+    input.value = "edited";
     input.blur();
 
     // Assert
     expect(todoList.todos[0].description).toBe('edited');
-  })
-})
+  });
+  
+  test('test completed task',() => {
+    // Arrange
+    document.body.innerHTML = '<ul id="todo-list"></ul>';
+    const wrapper = document.getElementById('todo-list');
+    const todoList = new TodoList(wrapper);
+    todoList.addNewItem("New todo");
+    const todoElement = document.querySelector('#todo-0');
+    const button = document.querySelector('#todo-0 .completionIcon');
+    const todos = todoList.todos;
+
+    // Act
+    button.click();
+
+    // Assert
+    expect(todoElement.classList).toContain('completed');
+    expect(todos[0].completed).toBe(true);
+  });
+});

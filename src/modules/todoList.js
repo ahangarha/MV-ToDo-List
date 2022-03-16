@@ -113,30 +113,9 @@ export default class TodoList {
       this.refreshTodosOnPage();
     });
 
-    const actionIcon = document.createElement('div');
-    actionIcon.classList.add('actionIcon', 'icon');
-
-    const dragIcon = document.createElement('button');
-    dragIcon.setAttribute('type', 'button');
-    dragIcon.innerHTML = `
-    <svg
-      class="icon"
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
-      ></path>
-    </svg>
-    `;
-
     const deleteIcon = document.createElement('button');
     deleteIcon.setAttribute('type', 'button');
+    deleteIcon.classList.add('deleteIcon');
     deleteIcon.innerHTML = `
     <svg
       class="icon"
@@ -155,16 +134,13 @@ export default class TodoList {
     `;
     deleteIcon.addEventListener('click', () => this.removeItem(li));
 
-    actionIcon.appendChild(dragIcon);
-    actionIcon.appendChild(deleteIcon);
-
     if (completed) {
       li.classList.add('completed');
     }
 
     li.appendChild(completionIcon);
     li.appendChild(descriptionElement);
-    li.appendChild(actionIcon);
+    li.appendChild(deleteIcon);
     this.wrapper.appendChild(li);
   }
 

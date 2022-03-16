@@ -99,7 +99,7 @@ export default class TodoList {
     descriptionElement.setAttribute('value', description);
     descriptionElement.classList.add('description');
 
-    descriptionElement.addEventListener('focusin', () => {
+    descriptionElement.addEventListener('dblclick', () => {
       descriptionElement.readOnly = false;
       li.classList.add('active');
     });

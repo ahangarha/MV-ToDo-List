@@ -99,44 +99,25 @@ export default class TodoList {
     descriptionElement.setAttribute('value', description);
     descriptionElement.classList.add('description');
 
-    descriptionElement.addEventListener('focusin', () => {
-      descriptionElement.readOnly = false;
-      li.classList.add('active');
+    descriptionElement.addEventListener('dblclick', (event) => {
+      this.activateEditingTodo(descriptionElement, event);
+    });
+
+    descriptionElement.addEventListener('keypress', (event) => {
+      if ((event.code === 'Space' || event.code === 'Enter') && !li.classList.contains('active')) {
+        this.activateEditingTodo(descriptionElement, event);
+      } else if (event.code === 'Enter' && li.classList.contains('active')) {
+        this.deactivateEditingTodo(descriptionElement, event);
+      }
     });
 
     descriptionElement.addEventListener('focusout', (event) => {
-      descriptionElement.readOnly = true;
-      const newDescription = event.target.value;
-      const index = Number(event.target.parentElement.id.match(/\d+$/));
-      this.todos[index].description = newDescription;
-      li.classList.remove('active');
-      this.refreshTodosOnPage();
+      this.deactivateEditingTodo(descriptionElement, event);
     });
-
-    const actionIcon = document.createElement('div');
-    actionIcon.classList.add('actionIcon', 'icon');
-
-    const dragIcon = document.createElement('button');
-    dragIcon.setAttribute('type', 'button');
-    dragIcon.innerHTML = `
-    <svg
-      class="icon"
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
-      ></path>
-    </svg>
-    `;
 
     const deleteIcon = document.createElement('button');
     deleteIcon.setAttribute('type', 'button');
+    deleteIcon.classList.add('deleteIcon');
     deleteIcon.innerHTML = `
     <svg
       class="icon"
@@ -155,17 +136,30 @@ export default class TodoList {
     `;
     deleteIcon.addEventListener('click', () => this.removeItem(li));
 
-    actionIcon.appendChild(dragIcon);
-    actionIcon.appendChild(deleteIcon);
-
     if (completed) {
       li.classList.add('completed');
     }
 
     li.appendChild(completionIcon);
     li.appendChild(descriptionElement);
-    li.appendChild(actionIcon);
+    li.appendChild(deleteIcon);
     this.wrapper.appendChild(li);
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  activateEditingTodo(descriptionElement, event) {
+    event.preventDefault();
+    descriptionElement.readOnly = false;
+    descriptionElement.parentElement.classList.add('active');
+  }
+
+  deactivateEditingTodo(descriptionElement, event) {
+    descriptionElement.readOnly = true;
+    const newDescription = event.target.value;
+    const index = Number(event.target.parentElement.id.match(/\d+$/));
+    this.todos[index].description = newDescription;
+    descriptionElement.parentElement.classList.remove('active');
+    this.refreshTodosOnPage();
   }
 
   addNewItem(description) {

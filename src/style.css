@@ -164,25 +164,17 @@ body {
   text-decoration: none;
 }
 
-#todo-list li.todo .actionIcon {
+#todo-list li.todo .deleteIcon {
   overflow: hidden;
-  display: flex;
-  flex-grow: 0;
+  color: var(--color-gray-light);
 }
 
-#todo-list li.todo .actionIcon > button {
+#todo-list li.todo .deleteIcon:hover {
+  color: #c33;
+}
+
+#todo-list li.todo .deleteIcon > button {
   flex-shrink: 0;
-}
-
-#todo-list li.todo .actionIcon > button:first-child {
-  padding-left: 0;
-  transition-duration: 300ms;
-  color: var(--color-gray);
-  cursor: move;
-}
-
-#todo-list li.todo.active .actionIcon > button:first-child {
-  margin-left: -1.25rem;
 }
 
 #clear-all {

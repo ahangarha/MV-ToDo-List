@@ -99,18 +99,20 @@ export default class TodoList {
     descriptionElement.setAttribute('value', description);
     descriptionElement.classList.add('description');
 
-    descriptionElement.addEventListener('dblclick', () => {
-      descriptionElement.readOnly = false;
-      li.classList.add('active');
+    descriptionElement.addEventListener('dblclick', (event) => {
+      this.activateEditingTodo(descriptionElement, event);
+    });
+
+    descriptionElement.addEventListener('keypress', (event) => {
+      if ((event.code === 'Space' || event.code === 'Enter') && !li.classList.contains('active')) {
+        this.activateEditingTodo(descriptionElement, event);
+      } else if (event.code === 'Enter' && li.classList.contains('active')) {
+        this.deactivateEditingTodo(descriptionElement, event);
+      }
     });
 
     descriptionElement.addEventListener('focusout', (event) => {
-      descriptionElement.readOnly = true;
-      const newDescription = event.target.value;
-      const index = Number(event.target.parentElement.id.match(/\d+$/));
-      this.todos[index].description = newDescription;
-      li.classList.remove('active');
-      this.refreshTodosOnPage();
+      this.deactivateEditingTodo(descriptionElement, event);
     });
 
     const deleteIcon = document.createElement('button');
@@ -142,6 +144,22 @@ export default class TodoList {
     li.appendChild(descriptionElement);
     li.appendChild(deleteIcon);
     this.wrapper.appendChild(li);
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  activateEditingTodo(descriptionElement, event) {
+    event.preventDefault();
+    descriptionElement.readOnly = false;
+    descriptionElement.parentElement.classList.add('active');
+  }
+
+  deactivateEditingTodo(descriptionElement, event) {
+    descriptionElement.readOnly = true;
+    const newDescription = event.target.value;
+    const index = Number(event.target.parentElement.id.match(/\d+$/));
+    this.todos[index].description = newDescription;
+    descriptionElement.parentElement.classList.remove('active');
+    this.refreshTodosOnPage();
   }
 
   addNewItem(description) {

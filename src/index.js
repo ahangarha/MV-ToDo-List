@@ -1,19 +1,23 @@
-import TodoList from './modules/todoList.js';
+import {
+  initializeApp,
+  addNewTodo,
+  removeAllCompleted,
+} from './modules/dom-utils.js';
 
 import('./style.css');
 
 const todoListWrapper = document.getElementById('todo-list');
 
-const todoList = new TodoList(todoListWrapper);
+initializeApp(todoListWrapper);
 
 const form = document.getElementById('todo-form');
 form.addEventListener('submit', (event) => {
   event.preventDefault();
-  todoList.addNewItem(form.description.value);
+  addNewTodo(form.description.value);
   form.description.value = '';
 });
 
 const clearAllCompletedBtn = document.getElementById('clear-all');
 clearAllCompletedBtn.addEventListener('click', () => {
-  todoList.removeAllCompleted();
+  removeAllCompleted();
 });

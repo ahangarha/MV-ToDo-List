@@ -1,96 +1,84 @@
-/**
- * @jest-environment jsdom
- */
-
 import TodoList from './todoList.js';
 
-describe('Test - Part 1', () => {
+describe('Test TodoList class', () => {
   test('add new todo', () => {
-    // Arrange
-    document.body.innerHTML = '<ul id="todo-list"></ul>';
-    const wrapper = document.getElementById('todo-list');
-    const todoList = new TodoList(wrapper);
-    const todoTitle = 'first todo!';
+    const todoList = new TodoList();
+    todoList.init();
+    const todoDescription = 'new todo';
 
-    // Act
-    todoList.addNewItem(todoTitle);
+    todoList.addNewTodo(todoDescription);
 
-    // Assert
-    expect(todoList.todos.length).toBe(1);
-    expect(wrapper.innerHTML).not.toBe('');
+    expect(todoList.todos[0].description).toBe(todoDescription);
   });
 
-  test('remove todo', () => {
-    // Arrange
-    document.body.innerHTML = '<ul id="todo-list"></ul>';
-    const wrapper = document.getElementById('todo-list');
-    const todoList = new TodoList(wrapper);
-    const todoElement = document.getElementById('todo-0');
+  test('remove the added todo', () => {
+    const todoList = new TodoList();
+    todoList.init();
+    const todoDescription = 'new todo';
 
-    // Act
-    todoList.removeItem(todoElement);
+    todoList.addNewTodo(todoDescription);
+    const todoIsRemoved = todoList.removeTodo(0);
 
-    // Assert
+    expect(todoIsRemoved).toBe(true);
     expect(todoList.todos.length).toBe(0);
-    expect(wrapper.innerHTML).toBe('');
-  });
-});
-
-describe('Test Part 2', () => {
-  test('test edit Task', () => {
-    // Arrange
-    document.body.innerHTML = '<ul id="todo-list"></ul>';
-    const wrapper = document.getElementById('todo-list');
-    const todoList = new TodoList(wrapper);
-    todoList.addNewItem('New todo');
-    const input = document.querySelector('#todo-0 input');
-
-    // Act
-    input.focus();
-    input.value = 'edited';
-    input.blur();
-
-    // Assert
-    expect(todoList.todos[0].description).toBe('edited');
   });
 
-  test('test completed task', () => {
-    // Arrange
-    document.body.innerHTML = '<ul id="todo-list"></ul>';
-    const wrapper = document.getElementById('todo-list');
-    const todoList = new TodoList(wrapper);
-    const todoElement = document.querySelector('#todo-0');
-    const button = document.querySelector('#todo-0 .completionIcon');
+  test('Add 3 todos and remove the second one', () => {
+    const todoList = new TodoList();
+    todoList.init();
+    const descriptions = ['one', 'two', 'three'];
 
-    // Act
-    button.click();
+    descriptions.forEach((description) => {
+      todoList.addNewTodo(description);
+    });
 
-    // Assert
-    expect(todoElement.classList).toContain('completed');
-    expect(todoList.todos[0].completed).toBe(true);
+    todoList.removeTodo(1);
+
+    expect(todoList.todos[0].description).toBe('one');
+    expect(todoList.todos[1].description).toBe('three');
   });
 
-  test('remove all completed todos', () => {
-    // Arrange
-    document.body.innerHTML = `<ul id="todo-list"></ul>
-      <button type="button" id="clear-all">Clear all</button>`;
-    const wrapper = document.getElementById('todo-list');
-    const todoList = new TodoList(wrapper);
+  test('Mark a todo as completed', () => {
+    const todoList = new TodoList();
+    todoList.init();
+    todoList.addNewTodo('new todo');
 
-    todoList.addNewItem('todo 1');
-    todoList.addNewItem('todo to remain');
+    todoList.setCompleted(0, true);
+    const markCompleted = todoList.todos[0].completed;
+    todoList.setCompleted(0, false);
+    const markNotCompleted = todoList.todos[0].completed;
 
-    const button1 = document.querySelector('#todo-1 .completionIcon');
-    const clearAllBtn = document.getElementById('clear-all');
+    expect(markCompleted).toBe(true);
+    expect(markNotCompleted).toBe(false);
+  });
 
-    // Act
-    button1.click();
-    clearAllBtn.click();
+  test('Update todo description', () => {
+    const todoList = new TodoList();
+    todoList.init();
+    todoList.addNewTodo('new todo');
+    const newDescription = 'edited';
+
+    todoList.setDescription(0, newDescription);
+    const editedDescription = todoList.todos[0].description;
+
+    expect(editedDescription).toBe(newDescription);
+  });
+
+  test('Remove all completed', () => {
+    const todoList = new TodoList();
+    todoList.init();
+    const descriptions = ['one', 'two', 'three'];
+
+    descriptions.forEach((description) => {
+      todoList.addNewTodo(description);
+    });
+
+    todoList.setCompleted(0, true);
+    todoList.setCompleted(2, true);
+
     todoList.removeAllCompleted();
 
-    // Assert
-    expect(wrapper.children.length).toBe(1);
     expect(todoList.todos.length).toBe(1);
-    expect(todoList.todos[0].description).toBe('todo to remain');
+    expect(todoList.todos[0].description).toBe(descriptions[1]);
   });
 });

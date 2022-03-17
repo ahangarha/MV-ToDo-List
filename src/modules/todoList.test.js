@@ -10,4 +10,14 @@ describe('Test TodoList class', () => {
 
     expect(todoList.todos[0].description).toBe(todoDescription);
   });
+
+  test('remove the added todo', () => {
+    const todoList = new TodoList();
+    todoList.init();
+
+    const todoIsRemoved = todoList.removeTodo(0);
+
+    expect(todoIsRemoved).toBe(true);
+    expect(todoList.todos.length).toBe(0);
+  });
 });

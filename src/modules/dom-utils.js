@@ -36,7 +36,7 @@ const removeTodoElement = (element) => {
   setTodosId();
 };
 
-export const generateHTMLTodo = ({ index, description, completed }) => {
+const generateHTMLTodo = ({ index, description, completed }) => {
   const li = document.createElement('li');
   li.classList.add('todo');
   li.setAttribute('id', 'todo-'.concat(index));
@@ -150,11 +150,11 @@ const addAllToPage = (todos, wrapper) => {
   todoElements.forEach((element) => wrapper.appendChild(element));
 };
 
-export const addTodoToPage = (newTodoElement) => {
+const addTodoToPage = (newTodoElement) => {
   wrapper.appendChild(newTodoElement);
 };
 
-export const saveNewTodo = (description) => todoList.addNewTodo(description);
+const saveNewTodo = (description) => todoList.addNewTodo(description);
 
 export const addNewTodo = (description) => {
   addTodoToPage(generateHTMLTodo(saveNewTodo(description)));

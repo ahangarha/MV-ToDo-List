@@ -1,8 +1,7 @@
 import isStorageAvailable from './isStorageAvailable.js';
 
 export default class TodoList {
-  constructor(wrapper, storageName = 'todos') {
-    this.wrapper = wrapper;
+  constructor(storageName = 'todos') {
     this.storageName = storageName;
     this.isStorageAvailable = isStorageAvailable('localStorage');
   }
@@ -35,10 +34,6 @@ export default class TodoList {
       completed: todo.completed,
     }));
     return sortedTodos;
-  }
-
-  removeAllFromPage() {
-    this.wrapper.innerHTML = '';
   }
 
   addNewTodo(description) {

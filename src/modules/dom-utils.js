@@ -136,20 +136,18 @@ export const generateHTMLTodo = ({ index, description, completed }) => {
 };
 
 const generateHTMLTodos = (todos) => {
-  const todosHTMLContent = document.createElement('div'); //wrapper.cloneNode(true);
+  const todoElements = [];
 
   todos.forEach((todo) => {
-    todosHTMLContent.appendChild(generateHTMLTodo(todo));
+    todoElements.push(generateHTMLTodo(todo));
   });
-  return todosHTMLContent;
+
+  return todoElements;
 };
 
 const addAllToPage = (todos, wrapper) => {
-  const HTMLTodos = generateHTMLTodos(todos);
-  const len = HTMLTodos.children.length;
-  for (let i = 0; i < len; i += 1) {
-    wrapper.appendChild(HTMLTodos.children[0]);
-  }
+  const todoElements = generateHTMLTodos(todos);
+  todoElements.forEach((element) => wrapper.appendChild(element));
 };
 
 export const addTodoToPage = (newTodoElement) => {

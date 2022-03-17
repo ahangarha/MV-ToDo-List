@@ -63,4 +63,22 @@ describe('Test TodoList class', () => {
 
     expect(editedDescription).toBe(newDescription);
   });
+
+  test('Remove all completed', () => {
+    const todoList = new TodoList();
+    todoList.init();
+    const descriptions = ['one', 'two', 'three'];
+
+    descriptions.forEach((description) => {
+      todoList.addNewTodo(description);
+    });
+
+    todoList.setCompleted(0, true);
+    todoList.setCompleted(2, true);
+
+    todoList.removeAllCompleted();
+
+    expect(todoList.todos.length).toBe(1);
+    expect(todoList.todos[0].description).toBe(descriptions[1]);
+  });
 });

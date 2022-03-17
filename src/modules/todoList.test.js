@@ -14,7 +14,9 @@ describe('Test TodoList class', () => {
   test('remove the added todo', () => {
     const todoList = new TodoList();
     todoList.init();
+    const todoDescription = 'new todo';
 
+    todoList.addNewTodo(todoDescription);
     const todoIsRemoved = todoList.removeTodo(0);
 
     expect(todoIsRemoved).toBe(true);

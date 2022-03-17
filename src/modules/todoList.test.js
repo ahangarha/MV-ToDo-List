@@ -51,4 +51,16 @@ describe('Test TodoList class', () => {
     expect(markCompleted).toBe(true);
     expect(markNotCompleted).toBe(false);
   });
+
+  test('Update todo description', () => {
+    const todoList = new TodoList();
+    todoList.init();
+    todoList.addNewTodo('new todo');
+    const newDescription = 'edited';
+
+    todoList.setDescription(0, newDescription);
+    const editedDescription = todoList.todos[0].description;
+
+    expect(editedDescription).toBe(newDescription);
+  });
 });

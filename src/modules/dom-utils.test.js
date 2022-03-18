@@ -7,6 +7,11 @@ import {
   addNewTodo,
 } from './dom-utils.js';
 
+const deleteAllTodos = () => {
+  const deleteIcons = document.querySelectorAll('.deleteIcon');
+  deleteIcons.forEach((icon) => icon.click());
+};
+
 describe('Add and remove todos', () => {
   test('add new todo', () => {
     document.body.innerHTML = '<ul id="todo-list"></ul>';
@@ -21,6 +26,8 @@ describe('Add and remove todos', () => {
 
     // Assert
     expect(todosOnPage.length).toBe(1);
+
+    deleteAllTodos();
   });
 
   test('click on delete button and remove todo', () => {
@@ -29,6 +36,7 @@ describe('Add and remove todos', () => {
     const wrapper = document.getElementById('todo-list');
     const todosOnPage = wrapper.childNodes;
     initializeApp(wrapper);
+    addNewTodo('first todo!');
     const todoElement = document.getElementById('todo-0');
     const delBtn = todoElement.querySelector('.deleteIcon');
 
@@ -68,14 +76,16 @@ describe('Add and remove todos', () => {
     expect(comletedStatusAfterClick).toBe(true);
     expect(comletedStatusAfterSecondClick).toBe(false);
     expect(comletionsStatusAfterReload).toBe(true);
+
+    deleteAllTodos();
   });
 
   test('Delete existing todo', () => {
-    // We already have one todo from the past test.
     // Arrange
     document.body.innerHTML = '<ul id="todo-list"></ul>';
     const wrapper = document.getElementById('todo-list');
     initializeApp(wrapper);
+    addNewTodo('new todo');
 
     const deleteIcon = document.querySelector('#todo-0 .deleteIcon');
 
@@ -106,15 +116,11 @@ describe('Add and remove todos', () => {
     firstTodoDeleteIcon.click();
     const newFirstTodoDesctiotion = document.querySelector('#todo-0 .description').value;
 
-    // remove the remaining todo
-    const newFirstTodoDeleteIcon = document.querySelector('#todo-0 .deleteIcon');
-    newFirstTodoDeleteIcon.click();
-
     // Assert
     expect(firstTodoDesctiotion).toBe(firstDescription);
     expect(newFirstTodoDesctiotion).toBe(secondDescription);
-    // make sure the list is empty
-    expect(wrapper.innerHTML).toBe('');
+
+    deleteAllTodos();
   });
 
   test('Activate editing by double click', () => {
@@ -137,6 +143,8 @@ describe('Add and remove todos', () => {
     // Assert
     expect(isActiveBefore).toBe(false);
     expect(isActiveAfter).toBe(true);
+
+    deleteAllTodos();
   });
 
   test('Deactivate editing and save new title by focusing out', () => {
@@ -164,5 +172,7 @@ describe('Add and remove todos', () => {
 
     // Assert
     expect(newTodoText.value).toBe(newTitle);
+
+    deleteAllTodos();
   });
 });

@@ -80,4 +80,32 @@ describe('Add and remove todos', () => {
     expect(wrapperHasContentBeforeClick).toBe(true);
     expect(wrapperHasContentAfterClick).toBe(false);
   });
+
+  test('Delete todo in a list of todos and update ids', () => {
+    // Arrange
+    document.body.innerHTML = '<ul id="todo-list"></ul>';
+    const wrapper = document.getElementById('todo-list');
+    initializeApp(wrapper);
+    const firstDescription = 'first todo!';
+    const secondDescription = 'second todo!';
+    addNewTodo(firstDescription);
+    addNewTodo(secondDescription);
+
+    const firstTodoDesctiotion = document.querySelector('#todo-0 .description').value;
+    const firstTodoDeleteIcon = document.querySelector('#todo-0 .deleteIcon');
+
+    // Act
+    firstTodoDeleteIcon.click();
+    const newFirstTodoDesctiotion = document.querySelector('#todo-0 .description').value;
+
+    // remove the remaining todo
+    const newFirstTodoDeleteIcon = document.querySelector('#todo-0 .deleteIcon');
+    newFirstTodoDeleteIcon.click();
+
+    // Assert
+    expect(firstTodoDesctiotion).toBe(firstDescription);
+    expect(newFirstTodoDesctiotion).toBe(secondDescription);
+    // make sure the list is empty
+    expect(wrapper.innerHTML).toBe('');
+  });
 });

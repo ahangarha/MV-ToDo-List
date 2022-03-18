@@ -5,7 +5,7 @@
 import {
   initializeApp,
   addNewTodo,
-} from './modules/dom-utils.js';
+} from './dom-utils.js';
 
 describe('Add and remove todos', () => {
   test('add new todo', () => {

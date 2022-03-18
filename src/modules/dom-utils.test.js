@@ -61,4 +61,23 @@ describe('Add and remove todos', () => {
     expect(comletedStatusAfterClick).toBe(true);
     expect(comletedStatusAfterSecondClick).toBe(false);
   });
+
+  test('Delete existing todo', () => {
+    // We already have one todo from the past test.
+    // Arrange
+    document.body.innerHTML = '<ul id="todo-list"></ul>';
+    const wrapper = document.getElementById('todo-list');
+    initializeApp(wrapper);
+
+    const deleteIcon = document.querySelector('#todo-0 .deleteIcon');
+
+    // Act
+    const wrapperHasContentBeforeClick = !!wrapper.innerHTML.length;
+    deleteIcon.click();
+    const wrapperHasContentAfterClick = !!wrapper.innerHTML.length;
+
+    // Assert
+    expect(wrapperHasContentBeforeClick).toBe(true);
+    expect(wrapperHasContentAfterClick).toBe(false);
+  });
 });

@@ -164,6 +164,7 @@ export const removeAllCompleted = () => {
   todoList.removeAllCompleted();
   const completedElements = wrapper.querySelectorAll('li.completed');
   completedElements.forEach((el) => el.remove());
+  setTodosId();
 };
 
 export const initializeApp = (htmlWrapper) => {

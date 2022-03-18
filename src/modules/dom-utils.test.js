@@ -55,11 +55,19 @@ describe('Add and remove todos', () => {
     const comletedStatusAfterClick = addedTodoElement.classList.contains('completed');
     completionIcon.click();
     const comletedStatusAfterSecondClick = addedTodoElement.classList.contains('completed');
+    completionIcon.click();
+
+    // reload the todos to make sure the new title is stored
+    wrapper.innerHTML = '';
+    initializeApp(wrapper);
+    const reloadedTodoElement = document.getElementById('todo-0');
+    const comletionsStatusAfterReload = reloadedTodoElement.classList.contains('completed');
 
     // Assert
     expect(comletedStatusBeforeClick).toBe(false);
     expect(comletedStatusAfterClick).toBe(true);
     expect(comletedStatusAfterSecondClick).toBe(false);
+    expect(comletionsStatusAfterReload).toBe(true);
   });
 
   test('Delete existing todo', () => {
@@ -131,7 +139,7 @@ describe('Add and remove todos', () => {
     expect(isActiveAfter).toBe(true);
   });
 
-  test('Deactivate editing by focusing out', () => {
+  test('Deactivate editing and save new title by focusing out', () => {
     // Arrange
     document.body.innerHTML = '<ul id="todo-list"></ul>';
     const wrapper = document.getElementById('todo-list');

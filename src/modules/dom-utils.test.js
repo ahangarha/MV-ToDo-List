@@ -108,4 +108,26 @@ describe('Add and remove todos', () => {
     // make sure the list is empty
     expect(wrapper.innerHTML).toBe('');
   });
+
+  test('Activate editing by double click', () => {
+    // Arrange
+    document.body.innerHTML = '<ul id="todo-list"></ul>';
+    const wrapper = document.getElementById('todo-list');
+    initializeApp(wrapper);
+    const title = 'first todo!';
+    addNewTodo(title);
+    const todoElement = document.getElementById('todo-0');
+    const todoText = document.querySelector('#todo-0 .description');
+
+    const dblClick = new Event('dblclick');
+
+    // Act
+    const isActiveBefore = todoElement.classList.contains('active');
+    todoText.dispatchEvent(dblClick);
+    const isActiveAfter = todoElement.classList.contains('active');
+
+    // Assert
+    expect(isActiveBefore).toBe(false);
+    expect(isActiveAfter).toBe(true);
+  });
 });

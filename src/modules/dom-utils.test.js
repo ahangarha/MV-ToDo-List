@@ -130,4 +130,31 @@ describe('Add and remove todos', () => {
     expect(isActiveBefore).toBe(false);
     expect(isActiveAfter).toBe(true);
   });
+
+  test('Deactivate editing by focusing out', () => {
+    // Arrange
+    document.body.innerHTML = '<ul id="todo-list"></ul>';
+    const wrapper = document.getElementById('todo-list');
+    initializeApp(wrapper);
+    const title = 'first todo!';
+    addNewTodo(title);
+    const todoText = document.querySelector('#todo-0 .description');
+
+    const dblClick = new Event('dblclick');
+    const focusOut = new Event('focusout');
+    const newTitle = 'edited todo';
+
+    // Act
+    todoText.dispatchEvent(dblClick);
+    todoText.value = newTitle;
+    todoText.dispatchEvent(focusOut);
+
+    // reload the todos to make sure the new title is stored
+    wrapper.innerHTML = '';
+    initializeApp(wrapper);
+    const newTodoText = document.querySelector('#todo-0 .description');
+
+    // Assert
+    expect(newTodoText.value).toBe(newTitle);
+  });
 });

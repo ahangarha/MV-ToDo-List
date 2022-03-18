@@ -5,6 +5,7 @@
 import {
   initializeApp,
   addNewTodo,
+  removeAllCompleted,
 } from './dom-utils.js';
 
 const deleteAllTodos = () => {
@@ -76,6 +77,32 @@ describe('Add and remove todos', () => {
     expect(comletedStatusAfterClick).toBe(true);
     expect(comletedStatusAfterSecondClick).toBe(false);
     expect(comletionsStatusAfterReload).toBe(true);
+
+    deleteAllTodos();
+  });
+
+  test('Remove all completed', () => {
+    // Arrange
+    document.body.innerHTML = '<ul id="todo-list"></ul>';
+    const wrapper = document.getElementById('todo-list');
+    initializeApp(wrapper);
+
+    addNewTodo('first todo');
+    addNewTodo('second todo');
+    addNewTodo('third todo');
+
+    const completionIcons = document.querySelectorAll('.completionIcon');
+
+    // Act
+    completionIcons[0].click();
+    completionIcons[2].click();
+    removeAllCompleted();
+    const remainingTodosCount = wrapper.children.length;
+    const remainingTodoTitle = document.querySelector('#todo-0 .description').value;
+
+    // Assert
+    expect(remainingTodosCount).toBe(1);
+    expect(remainingTodoTitle).toBe('second todo');
 
     deleteAllTodos();
   });

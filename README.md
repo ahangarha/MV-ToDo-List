@@ -16,7 +16,7 @@ This is an educational project to make a To Do List web application without usin
 ![screenshot](./screenshot.png)
 
 ## Live Demo
-Check the [live demo](https://ahangarha.github.io/MV-ToDo-List/)
+Check the [live demo](https://mv-todo-js.netlify.app/)
 
 ## Usage
 
